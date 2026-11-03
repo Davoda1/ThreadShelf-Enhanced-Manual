@@ -34,6 +34,36 @@ test('external links keep query strings escaped and open with isolated window ac
   assert.ok(!html.includes('data-doc='));
 });
 
+test('standalone images are figures with a safe enlarge link and caption, outside paragraphs', () => {
+  const { html } = render('![Reader & details](/media/01-reader-dark.png)', '../');
+  assert.match(html, /^<figure class="doc-figure"><a /);
+  assert.ok(html.includes('href="../media/01-reader-dark.png" target="_blank" rel="noopener noreferrer"'));
+  assert.ok(html.includes('aria-label="Open full-size image: Reader &amp; details"'));
+  assert.ok(html.includes('src="../media/01-reader-dark.png" alt="Reader &amp; details"'));
+  assert.ok(html.includes('<figcaption>Reader &amp; details · Select to enlarge</figcaption>'));
+  assert.ok(!/<\/?p(?:\s|>)/.test(html));
+});
+
+test('inline images retain paragraph text without block figures or automatic nested links', () => {
+  const { html } = render('Before ![Reader](/media/01-reader-dark.png) after.', '../');
+  assert.match(html, /^<p>Before <img /);
+  assert.match(html, /\/> after\.<\/p>\n$/);
+  assert.ok(html.includes('src="../media/01-reader-dark.png"'));
+  assert.ok(!/<(?:figure|figcaption|a)(?:\s|>)/.test(html));
+});
+
+test('authored image links have one anchor and preserve safe destinations', () => {
+  const { html } = render('[![Reader](/media/01-reader-dark.png)](/reader/)', '../');
+  assert.equal((html.match(/<a(?:\s|>)/g) || []).length, 1);
+  assert.match(html, /^<p><a href="\.\.\/reader\/" data-doc="reader"><img /);
+  assert.match(html, /\/><\/a><\/p>\n$/);
+  assert.ok(!html.includes('<figure'));
+
+  const blocked = render('[![Unsafe](javascript:alert(1))](data:text/html,example)').html;
+  assert.match(blocked, /<a href="#"><img src="#"/);
+  assert.ok(!/(?:href|src)="(?:javascript|data|vbscript):/i.test(blocked));
+});
+
 test('executable URL schemes are rejected in links and linked images', () => {
   const markdown = '[Run](javascript:alert(1)) [Data](data:text/html,example) [VB](VbScript:MsgBox(1))\n\n![Unsafe](javascript:alert(1))';
   const { html } = render(markdown);

@@ -2,6 +2,8 @@
 
 A static React documentation website for [ThreadShelf Enhanced](https://github.com/Davoda1/ThreadShelf-Enhanced), covering installation, conversation archives, search, AI providers, live Markdown notes, speech, server operation and integrations.
 
+**[Read the documentation website](https://davoda1.github.io/ThreadShelf-Enhanced-Manual/)**
+
 The handbook contains **26 guides**. Each guide is pre-rendered into complete HTML, then enhanced with browser-local search, responsive navigation, light/dark/system themes, code-copy controls, page outlines and print styles. An interactive search-method guide explains when to choose Exact, Semantic or Hybrid retrieval.
 
 This repository contains the documentation website. Install and operate the ThreadShelf Enhanced server from its [application repository](https://github.com/Davoda1/ThreadShelf-Enhanced).

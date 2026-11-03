@@ -10,6 +10,8 @@ For a standard source installation, `.env` sits beside the setup scripts. With a
 
 The HTTP server loads this file automatically. Direct MCP and CLI entry points need matching process environment variables or an explicit Node `--env-file` argument; they do not inherit the running server's configuration. See [MCP](/mcp/) and [Command-line reference](/cli/) for examples.
 
+The Linux launcher adds an earlier step: `./threadshelf-enhanced` requires and preloads the installation's `.env` with Node's `--env-file`. When launched this way, the HTTP server can then load a data-root `.env`; values already defined by the invoking environment or the installation's file take precedence over that later file.
+
 Preferences such as AI provider settings, speech controls and note-folder permissions are saved through the application. Prefer their supported settings screens over editing generated JSON while the server runs.
 
 ## HTTP and trusted-network access
@@ -93,6 +95,7 @@ Setup and the launcher respect pre-existing `XDG_CACHE_HOME` and `HF_HOME`. Exte
 - [Environment template](https://github.com/Davoda1/ThreadShelf-Enhanced/blob/master/.env.example)
 - [Shared data-path resolver](https://github.com/Davoda1/ThreadShelf-Enhanced/blob/master/src/paths.ts)
 - [Environment loading](https://github.com/Davoda1/ThreadShelf-Enhanced/blob/master/src/load-env.ts)
+- [Linux launcher environment preload](https://github.com/Davoda1/ThreadShelf-Enhanced/blob/master/threadshelf-enhanced)
 - [Generation configuration](https://github.com/Davoda1/ThreadShelf-Enhanced/blob/master/src/generation/config.ts)
 - [Memory governor](https://github.com/Davoda1/ThreadShelf-Enhanced/blob/master/src/memory-governor.ts)
 - [Chunking configuration](https://github.com/Davoda1/ThreadShelf-Enhanced/blob/master/src/chunking.ts)

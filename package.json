@@ -10,7 +10,7 @@
     "url": "git+https://github.com/Davoda1/ThreadShelf-Enhanced-Manual.git"
   },
   "bugs": { "url": "https://github.com/Davoda1/ThreadShelf-Enhanced-Manual/issues" },
-  "homepage": "https://github.com/Davoda1/ThreadShelf-Enhanced-Manual#readme",
+  "homepage": "https://davoda1.github.io/ThreadShelf-Enhanced-Manual/",
   "engines": { "node": ">=24.0.0" },
   "scripts": {
     "dev": "vite --host 127.0.0.1",

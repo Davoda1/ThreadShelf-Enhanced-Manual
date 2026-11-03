@@ -26,6 +26,11 @@ function safeUrl(value) {
 
 export function renderMarkdown(raw, root, pages = []) {
   const headings = [], used = new Set();
+  const imageUrl = href => {
+    const safe = safeUrl(href);
+    return safe.startsWith('/') && !safe.startsWith('//') ? assetUrl(root, safe) : safe;
+  };
+  const imageTag = ({ href, text }, standalone = false) => `<img src="${escapeHTML(imageUrl(href))}" alt="${escapeHTML(text)}" loading="lazy"${standalone ? ' width="1600" height="1000"' : ''} />`;
   const renderer = new Renderer();
   renderer.heading = function ({ tokens, depth }) {
     if (depth === 1) return '';
@@ -52,10 +57,16 @@ export function renderMarkdown(raw, root, pages = []) {
     const language = (lang || 'text').split(/\s+/)[0];
     return `<div class="code-block"><div class="code-toolbar"><span>${escapeHTML(language)}</span><button type="button" class="copy-code" aria-label="Copy code">Copy</button></div><pre tabindex="0"><code>${escapeHTML(text)}</code></pre></div>`;
   };
-  renderer.image = function ({ href, text }) {
-    const safe = safeUrl(href);
-    const url = safe.startsWith('/') && !safe.startsWith('//') ? assetUrl(root, safe) : safe;
-    return `<figure class="doc-figure"><a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: ${escapeHTML(text)}"><img src="${escapeHTML(url)}" alt="${escapeHTML(text)}" loading="lazy" width="1600" height="1000" /></a><figcaption>${escapeHTML(text)} · Select to enlarge</figcaption></figure>`;
+  // Images are phrasing content by default, including inside authored links.
+  // Promote an image-only paragraph to a figure without an invalid surrounding <p>.
+  renderer.image = token => imageTag(token);
+  renderer.paragraph = function ({ tokens }) {
+    const content = tokens.filter(token => token.type !== 'text' || token.text.trim());
+    if (content.length === 1 && content[0].type === 'image') {
+      const image = content[0];
+      return `<figure class="doc-figure"><a href="${escapeHTML(imageUrl(image.href))}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: ${escapeHTML(image.text)}">${imageTag(image, true)}</a><figcaption>${escapeHTML(image.text)} · Select to enlarge</figcaption></figure>\n`;
+    }
+    return `<p>${this.parser.parseInline(tokens)}</p>\n`;
   };
   renderer.table = function (token) {
     const header = token.header.map(cell => this.tablecell(cell)).join('');

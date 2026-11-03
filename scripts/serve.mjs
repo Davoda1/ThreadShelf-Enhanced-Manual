@@ -13,7 +13,7 @@ const resolvePublicFile = async file => {
   return canonical;
 };
 const option = (name, fallback) => { const index = args.indexOf(name); return index < 0 ? fallback : args[index + 1]; };
-const port = Number(option('--port', process.env.PORT || process.env.SITES_PORT || '4173'));
+const port = Number(option('--port', process.env.PORT || '4173'));
 const host = option('--host', '127.0.0.1');
 const prefixInput = option('--prefix', '/');
 const prefix = '/' + prefixInput.replace(/^\/+|\/+$/g, '') + '/';
