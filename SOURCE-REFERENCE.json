@@ -1,0 +1,18 @@
+{
+  "project": "ThreadShelf Enhanced documentation",
+  "repository": "https://github.com/Davoda1/ThreadShelf-Enhanced",
+  "branch": "master",
+  "commit": "131659e6400a98a2ba52206f48d7c0eb0ac83a83",
+  "review_date": "2026-11-03",
+  "scope": "Current Enhanced implementation and repository documentation. Inherited documentation conflicts were resolved against code.",
+  "upstream_design_reference": "https://chrystianschutz.github.io/ThreadShelf/",
+  "screenshots": {
+    "source_directory": "docs/extras/",
+    "files": ["01-reader-dark.png", "02-reader-light.png", "03-code-dark.png", "04-diagram-light.png", "05-chart-math-dark.png", "06-search-light.png", "07-archive-dark.png", "08-insights-light.png", "09-speech-dark.png", "10-speech-light.png"],
+    "provenance": "Public repository documents these captures as a temporary archive containing synthetic conversations and model labels. Image bytes are preserved unchanged.",
+    "license": "MIT; upstream notice retained in licenses/ThreadShelf-LICENSE.txt"
+  },
+  "favicon": "client/public/favicon.svg from the same source commit",
+  "sample": "Original synthetic normalized JSON in public/examples/demo-conversation.json",
+  "runtime_assets": "All scripts, styles, icons, search data, and screenshots are bundled locally. No runtime CDN or external font."
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Planning a reading garden",
+  "provider": "threadshelf",
+  "conversationKey": "documentation-reading-garden",
+  "turns": [
+    { "user": "How could we create a quiet reading garden in a small courtyard?" },
+    { "ai": "## A quiet reading garden\n\nStart with a comfortable seat, gentle shade, and a small planting area. Keep the path clear and choose a sheltered corner.\n\n| Element | Purpose |\n| --- | --- |\n| Comfortable bench | A place to read for longer periods |\n| Light shade | Less glare on the page |\n| Herbs and flowers | Seasonal interest near the seating area |\n\nA practical first step is to move an existing chair into the courtyard and test the light at different times of day.", "model": "Demonstration model" },
+    { "user": "What should we include in a simple maintenance checklist?" },
+    { "ai": "## Weekly checklist\n\n- Check the soil before watering.\n- Remove fallen leaves from the path.\n- Wipe the seat and keep cushions dry.\n- Note which plants need more shade.\n\nKeep a short garden note so the layout can improve over time.", "model": "Demonstration model" }
+  ]
+}
